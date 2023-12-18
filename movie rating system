@@ -1,0 +1,39 @@
+# Import necessary libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Read movie and rating data
+movie = pd.read_csv("/content/movie.csv")
+rating = pd.read_csv("/content/rating.csv")
+
+# Display first few rows of the movie DataFrame
+movie.head()
+
+# Display first few rows of the rating DataFrame
+rating.head()
+
+# Merge movie and rating DataFrames on "movieId"
+data = pd.merge(movie, rating, on="movieId")
+
+# Display first few rows of the merged DataFrame
+data.head()
+
+# Install or upgrade Matplotlib
+# pip install --upgrade matplotlib
+
+# Explore the distribution of ratings
+ratings = data["rating"]
+df = ratings.value_counts()
+df.head()
+
+# Plot a pie chart to visualize the distribution of ratings
+plt.figure(figsize=(10, 8))
+plt.pie(df.values, labels=df.index, autopct='%1.1f%%')
+plt.show()
+
+# Filter data for ratings of 5
+data2 = data.query("rating == 5")
+
+# Print the top 10 movies with rating 5
+print(data2["title"].value_counts().head(10))
